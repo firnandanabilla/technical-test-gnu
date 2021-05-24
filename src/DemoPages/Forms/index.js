@@ -3,9 +3,9 @@ import {Route} from 'react-router-dom';
 
 // Forms
 
-import FormUtama from "../Nabilla/form";
-import Card from "../Nabilla/card";
-import CardData from "../Nabilla/carddata";
+import FormUtama from "../Nabilla/Form";
+import Card from "../Nabilla/Card";
+import CardData from "../Nabilla/CardData";
 import HomePage from "../Nabilla/HomePages";
 
 

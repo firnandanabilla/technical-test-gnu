@@ -4,8 +4,8 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import AppHeader from "../../../Layout/AppHeader/";
 import {Row} from "reactstrap";
 
-import CardNya from "../card";
-import CardData from "../carddata";
+import CardNya from "../Card";
+import Index from "../CardData";
 
 const HomePage = () => {
     return(
@@ -21,7 +21,7 @@ const HomePage = () => {
                 <div className="app-main">
                     <div className="app-main__inner">
                         <Row>
-                            {CardData.map((x,index)=>(
+                            {Index.map((x, index)=>(
                                 <CardNya key={index} title={x.title} subtitle={x.subtitle} image={x.image}/>
                             ))}
                         </Row>

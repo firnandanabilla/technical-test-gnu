@@ -1,10 +1,10 @@
 import React,{Fragment} from "react";
-import bg1 from "../../assets/utils/images/dropdown-header/abstract1.jpg"
-import bg2 from "../../assets/utils/images/dropdown-header/abstract2.jpg"
-import bg3 from "../../assets/utils/images/dropdown-header/abstract3.jpg"
-import bg4 from "../../assets/utils/images/dropdown-header/abstract4.jpg"
-import bg5 from "../../assets/utils/images/dropdown-header/abstract5.jpg"
-import bg6 from "../../assets/utils/images/dropdown-header/abstract6.jpg"
+import bg1 from "../../../assets/utils/images/dropdown-header/abstract1.jpg"
+import bg2 from "../../../assets/utils/images/dropdown-header/abstract2.jpg"
+import bg3 from "../../../assets/utils/images/dropdown-header/abstract3.jpg"
+import bg4 from "../../../assets/utils/images/dropdown-header/abstract4.jpg"
+import bg5 from "../../../assets/utils/images/dropdown-header/abstract5.jpg"
+import bg6 from "../../../assets/utils/images/dropdown-header/abstract6.jpg"
 
 const CardData =[
     {
