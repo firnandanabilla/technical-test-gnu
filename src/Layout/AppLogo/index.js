@@ -41,17 +41,17 @@ class HeaderLogo extends React.Component {
             <Fragment>
                 <div className="app-header__logo">
                     <div className="logo-src"/>
-                    <div className="header__pane ml-auto">
-                        <div onClick={this.toggleEnableClosedSidebar}>
-                        <Slider 
-                         width={26}
-                         lineHeight={2}
-                         lineSpacing={5}
-                         color='#6c757d'
-                         active={this.state.active}
-                         onClick={() => this.setState({ active: !this.state.active })}/>
-                        </div>
-                    </div>
+                    {/*<div className="header__pane ml-auto">*/}
+                    {/*    <div onClick={this.toggleEnableClosedSidebar}>*/}
+                    {/*    <Slider */}
+                    {/*     width={26}*/}
+                    {/*     lineHeight={2}*/}
+                    {/*     lineSpacing={5}*/}
+                    {/*     color='#6c757d'*/}
+                    {/*     active={this.state.active}*/}
+                    {/*     onClick={() => this.setState({ active: !this.state.active })}/>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
                 <AppMobileMenu/>
             </Fragment>

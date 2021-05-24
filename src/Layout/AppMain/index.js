@@ -17,6 +17,7 @@ const Charts = lazy(() => import('../../DemoPages/Charts'));
 const Forms = lazy(() => import('../../DemoPages/Forms'));
 const Tables = lazy(() => import('../../DemoPages/Tables'));
 
+
 const AppMain = () => {
 
     return (
@@ -185,7 +186,8 @@ const AppMain = () => {
             </Suspense>
 
             <Route exact path="/" render={() => (
-                <Redirect to="/dashboards/crm"/>
+                // <Redirect to="/dashboards/crm"/>
+                <Redirect to="/forms/formutama"/>
             )}/>
             <ToastContainer/>
         </Fragment>

@@ -3,6 +3,12 @@ import {Route} from 'react-router-dom';
 
 // Forms
 
+import FormUtama from "../Nabilla/form";
+import Card from "../Nabilla/card";
+import CardData from "../Nabilla/carddata";
+import HomePage from "../Nabilla/HomePages";
+
+
 import FormElementsLayouts from "./Elements/Layouts/";
 import FormElementsControls from "./Elements/Controls/";
 import FormElementsValidation from "./Elements/Validation/";
@@ -39,12 +45,20 @@ import ThemeOptions from '../../Layout/ThemeOptions/';
 
 const Forms = ({match}) => (
     <Fragment>
-        <ThemeOptions/>
+        {/*<ThemeOptions/>*/}
         <AppHeader/>
         <div className="app-main">
-            <AppSidebar/>
+            {/*<AppSidebar/>*/}
             <div className="app-main__outer">
                 <div className="app-main__inner">
+
+                    {/*Nabilla*/}
+
+                    <Route path={`${match.url}/formutama`} component={FormUtama}/>
+                    <Route path={`${match.url}/card`} component={Card}/>
+                    <Route path={`${match.url}/carddata`} component={CardData}/>
+                    <Route path={`${match.url}/homepage`} component={HomePage}/>
+
 
                     {/* Form Elements */}
 
@@ -73,7 +87,7 @@ const Forms = ({match}) => (
                     <Route path={`${match.url}/color-picker`} component={FormColorPicker}/>
 
                 </div>
-                <AppFooter/>
+                {/*<AppFooter/>*/}
             </div>
         </div>
     </Fragment>
