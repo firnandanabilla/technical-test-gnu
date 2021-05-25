@@ -18,16 +18,16 @@ const HomePage = () => {
                 transitionEnter={false}
                 transitionLeave={false}>
                 <AppHeader/>
-                <div className="app-main">
-                    <div className="app-main__inner">
+                {/*<div className="app-main">*/}
+                {/*    <div className="app-main__inner">*/}
                         <Row>
                             {Index.map((x, index)=>(
                                 <CardNya key={index} title={x.title} subtitle={x.subtitle} image={x.image}/>
                             ))}
                         </Row>
 
-                    </div>
-                </div>
+                {/*    </div>*/}
+                {/*</div>*/}
             </CSSTransitionGroup>
         </Fragment>
     )

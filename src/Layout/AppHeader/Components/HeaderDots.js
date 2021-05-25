@@ -1,5 +1,7 @@
 import React, {Fragment} from 'react';
 
+import {useHistory} from "react-router-dom";
+
 // import Ionicon from 'react-ionicons';
 import { IoIosGrid, IoIosNotificationsOutline, IoIosAnalytics } from "react-icons/io";
 
@@ -86,13 +88,18 @@ class HeaderDots extends React.Component {
         return (
             <Fragment>
                 <div className="header-dots">
-                    <Button className="mb-2 mr-2 btn-icon" color="dark">
-                        <i className="pe-7s-science btn-icon-wrapper"> </i>
+
+                    <Button className="mb-2 mr-2 btn-icon" color="dark" href="#/forms/formutama">
+                        <i className="pe-7s-helm btn-icon-wrapper"> </i>
                         Add Event
                     </Button>
-                    <Button className="mb-2 mr-2 btn-icon" color="dark">
-                        <i className="pe-7s-science btn-icon-wrapper"> </i>
-                        Dashboard
+                    <Button className="mb-2 mr-2 btn-icon" color="dark" href="#/forms/homepage">
+                        <i className="lnr-store btn-icon-wrapper"> </i>
+                        Home Pages
+                    </Button>
+                    <Button className="mb-2 mr-2 btn-icon" color="dark" href="#/forms/table">
+                        <i className="pe-7s-tools btn-icon-wrapper"> </i>
+                        Table
                     </Button>
                 </div>
             </Fragment>

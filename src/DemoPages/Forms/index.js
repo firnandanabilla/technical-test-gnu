@@ -7,6 +7,7 @@ import FormUtama from "../Nabilla/Form";
 import Card from "../Nabilla/Card";
 import CardData from "../Nabilla/CardData";
 import HomePage from "../Nabilla/HomePages";
+import Table from "../Nabilla/Table";
 
 
 import FormElementsLayouts from "./Elements/Layouts/";
@@ -43,21 +44,25 @@ import AppFooter from '../../Layout/AppFooter/';
 
 import ThemeOptions from '../../Layout/ThemeOptions/';
 
-const Forms = ({match}) => (
+const Forms = ({match}) => {
+    console.log(match)
+
+return (
     <Fragment>
         {/*<ThemeOptions/>*/}
         <AppHeader/>
         <div className="app-main">
-            {/*<AppSidebar/>*/}
-            <div className="app-main__outer">
+            {/*/!*<AppSidebar/>*!/*/}
+            {/*<div className="app-main__outer">*/}
                 <div className="app-main__inner">
 
                     {/*Nabilla*/}
 
-                    <Route path={`${match.url}/formutama`} component={FormUtama}/>
+                    <Route path={`${match.url}/formutama`} component={FormUtama} exact/>
                     <Route path={`${match.url}/card`} component={Card}/>
                     <Route path={`${match.url}/carddata`} component={CardData}/>
                     <Route path={`${match.url}/homepage`} component={HomePage}/>
+                    <Route path={`${match.url}/table`} component={Table}/>
 
 
                     {/* Form Elements */}
@@ -88,9 +93,11 @@ const Forms = ({match}) => (
 
                 </div>
                 {/*<AppFooter/>*/}
-            </div>
+            {/*</div>*/}
         </div>
     </Fragment>
+
 );
+}
 
 export default Forms;
