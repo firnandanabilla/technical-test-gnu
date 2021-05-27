@@ -11,29 +11,34 @@ import ReactTable from "react-table";
 
 import {makeData} from "./utils";
 
-export default class DataTableBasic extends React.Component {
+const CreateRow = (props) => {
+    return (
+        <tr>
+            <td>{props.title}</td>
+            <td>{props.location}</td>
+        </tr>
+    )
+}
+
+class TableData extends React.Component {
     constructor() {
         super();
         this.state = {
-            data: []
+            dataTable: []
         };
     }
 
-    getData(){
-        axios.get(`http://localhost:1616/data`)
+    componentDidMount() {
+        axios.get("http://localhost:1616/data")
             .then(res => {
-                this.setState({data:res.data})
+                this.setState({dataTable: res.data})
+                console.log(res)
             })
     }
 
-    componentDidMount() {
-        this.getData()
-    }
-
     render() {
-
-        const {data} = this.state;
-        console.log("ini data", data);
+        const {dataTable} = this.state;
+        // console.log("ini data", data);
         return (
             <Fragment>
                 <CSSTransitionGroup
@@ -49,45 +54,33 @@ export default class DataTableBasic extends React.Component {
                             <Card className="main-card mb-3">
                                 <CardBody>
                                     <ReactTable
-                                        data={data}
-                                        columns={[
-                                            {
-                                                Header: "Name",
+                                        data={dataTable}
+                                        filterable
+                                        columns=
+                                            {[{
                                                 columns: [
                                                     {
                                                         Header: "Title",
-                                                        accessor: "firstName"
+                                                        accessor: "title"
                                                     },
                                                     {
                                                         Header: "Location",
-                                                        id: "lastName",
-                                                        accessor: d => d.lastName
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                Header: "Info",
-                                                columns: [
+                                                        id: "location"
+                                                    },
                                                     {
                                                         Header: "Date",
-                                                        accessor: "age"
+                                                        accessor: "date"
                                                     },
                                                     {
                                                         Header: "Participant",
-                                                        accessor: "status"
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                Header: 'Stats',
-                                                columns: [
+                                                        accessor: "participant"
+                                                    },
                                                     {
                                                         Header: "Note",
-                                                        accessor: "visits"
+                                                        accessor: "note"
                                                     }
                                                 ]
-                                            }
-                                        ]}
+                                            }]}
                                         defaultPageSize={10}
                                         className="-striped -highlight"
                                     />
@@ -100,3 +93,5 @@ export default class DataTableBasic extends React.Component {
         )
     }
 }
+
+export default TableData;
