@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from "react";
+import React, {Fragment} from "react";
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import axios from "axios";
 
@@ -17,11 +17,18 @@ import {
     Row
 } from "reactstrap";
 
-function NamaLabel(props) {
-    return <label>{props.name}</label>;
-}
+// function NamaLabel(props) {
+//     return <label>{props.name}</label>;
+// }
 
-class FormUtama extends Component {
+class FormUtama extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {
+
+        }
+    }
 
     handleChange = (e) => {
         this.setState({[e.target.name]: e.target.value})
@@ -43,14 +50,15 @@ class FormUtama extends Component {
     }
 
     onSubmit = (e) => {
+        console.log(this.state)
         const dataInput = {
-            id: this.data.id,
-            title: this.data.title,
-            location: this.data.location,
-            date: this.data.date,
-            participant: this.data.participant,
-            note: this.data.note,
-            file: this.data.file
+            id: this.state.id,
+            title: this.state.title,
+            location: this.state.location,
+            date: this.state.date,
+            participant: this.state.participant,
+            note: this.state.note,
+            file: this.state.file
         }
         axios.post("http://localhost:1616/data", dataInput)
             .then(res => console.log(res.data))
@@ -76,36 +84,40 @@ class FormUtama extends Component {
                                     <CardBody>
                                         <CardTitle><h5>Event</h5></CardTitle>
                                         <Form>
-                                            <input id="idPengirim" name="idPengirim" type="hidden"/>
                                             <FormGroup>
-                                                <NamaLabel name="Title :"/>
+                                                <Label>Name : </Label>
                                                 <Input type="text" name="title" id="title"
                                                        onChange={this.handleChange}/>
                                             </FormGroup>
                                             <FormGroup>
-                                                <NamaLabel name="Location :"/>
+                                                {/*<NamaLabel name="Location :"/>*/}
+                                                <Label>Location : </Label>
                                                 <Input type="text" name="location" id="location"
-                                                       placeholder="location placeholder"/>
+                                                       onChange={this.handleChange}/>
                                             </FormGroup>
                                             <FormGroup>
-                                                <NamaLabel name="Participant :"/>
+                                                {/*<NamaLabel name="Participant :"/>*/}
+                                                <Label>Participant : </Label>
                                                 <Input type="text" name="participant" id="participant"
-                                                       placeholder="participant placeholder"/>
+                                                       onChange={this.handleChange}/>
                                             </FormGroup>
                                             <FormGroup>
-                                                <NamaLabel name="Date :"/>
-                                                <Input type="date" name="date" id="date"/>
+                                                {/*<NamaLabel name="Date :"/>*/}
+                                                <Label>Date : </Label>
+                                                <Input type="date" name="date" id="date" onChange={this.handleChange}/>
                                             </FormGroup>
                                             <FormGroup>
-                                                <NamaLabel name="Note :"/>
+                                                {/*<NamaLabel name="Note :"/>*/}
+                                                <Label>Note : </Label>
                                                 <Input type="textarea" name="note" id="note"
-                                                       placeholder="note placeholder"/>
+                                                       onChange={this.handleChange}/>
                                             </FormGroup>
                                             <FormGroup>
-                                                <NamaLabel name="Upload Picture :"/>
-                                                <Input type="file" name="picture" id="picture"/>
+                                                {/*<NamaLabel name="Upload Picture :"/>*/}
+                                                <Label>Upload Picture : </Label>
+                                                <Input type="text" name="file" id="file" onChange={this.handleChange}/>
                                             </FormGroup>
-                                            <Button className="mb-2 mr-2 btn-icon" color="info">
+                                            <Button className="mb-2 mr-2 btn-icon" color="info" onClick={this.onSubmit}>
                                                 <i className="pe-7s-science btn-icon-wrapper"> </i>
                                                 Save
                                             </Button>
