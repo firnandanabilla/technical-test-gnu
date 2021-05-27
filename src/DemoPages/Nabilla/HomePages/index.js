@@ -1,4 +1,4 @@
-import React,{Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import AppHeader from "../../../Layout/AppHeader/";
@@ -6,9 +6,30 @@ import {Row} from "reactstrap";
 
 import CardNya from "../Card";
 import Index from "../CardData";
+import axios from "axios";
+import {useSelector} from "react-redux";
 
 const HomePage = () => {
-    return(
+    const [dataCard, setDataCard] = useState([])
+    let imageArrayPath = [];
+
+    useEffect(() => {
+        axios.get("http://localhost:1616/data").then(res => {
+            setDataCard(res.data)
+            console.log(res.data)
+        })
+    }, [])
+
+    useEffect(() => {
+        dataCard.map((data,index ) => {
+            axios.get("http://localhost:1616/data/getImage/" + data.id).then(res => {
+                imageArrayPath.push(res.data)
+                console.log(imageArrayPath[index])
+            })
+        })
+    })
+
+    return (
         <Fragment>
             <CSSTransitionGroup
                 component="div"
@@ -20,11 +41,12 @@ const HomePage = () => {
                 <AppHeader/>
                 {/*<div className="app-main">*/}
                 {/*    <div className="app-main__inner">*/}
-                        <Row>
-                            {Index.map((x, index)=>(
-                                <CardNya key={index} title={x.title} subtitle={x.subtitle} image={x.image}/>
-                            ))}
-                        </Row>
+                <Row>
+                    {dataCard.map((x, index) => (
+                        <CardNya key={index} title={x.title} location={x.location} participant={x.participant}
+                                 date={x.date} note={x.note} file={x.file}/>
+                    ))}
+                </Row>
 
                 {/*    </div>*/}
                 {/*</div>*/}
@@ -32,4 +54,4 @@ const HomePage = () => {
         </Fragment>
     )
 }
-    export default HomePage;
+export default HomePage;

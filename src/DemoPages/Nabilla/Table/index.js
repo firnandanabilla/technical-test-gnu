@@ -9,16 +9,15 @@ import {
 
 import ReactTable from "react-table";
 
-import {makeData} from "./utils";
 
-const CreateRow = (props) => {
-    return (
-        <tr>
-            <td>{props.title}</td>
-            <td>{props.location}</td>
-        </tr>
-    )
-}
+// const CreateRow = (props) => {
+//     return (
+//         <tr>
+//             <td>{props.title}</td>
+//             <td>{props.location}</td>
+//         </tr>
+//     )
+// }
 
 class TableData extends React.Component {
     constructor() {
@@ -65,7 +64,7 @@ class TableData extends React.Component {
                                                     },
                                                     {
                                                         Header: "Location",
-                                                        id: "location"
+                                                        accessor: "location"
                                                     },
                                                     {
                                                         Header: "Date",

@@ -10,14 +10,13 @@ const CardNya =(props) => (
                          alt="Card image cap"/>
                 <CardBody>
                     <CardTitle>{props.title}</CardTitle>
-                    <CardSubtitle>{props.subtitle}</CardSubtitle>
+                    <CardSubtitle>{props.location}</CardSubtitle>
+                    <CardSubtitle>{props.date}</CardSubtitle>
+                    <CardSubtitle>{props.participant}</CardSubtitle>
                 </CardBody>
                 <CardFooter>
                     <div className="align-content-center">
-                        <p>Note : Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Accusamus aliquam autem, dolores eius eligendi est eum iusto laudantium
-                            molestiae nam nesciunt nostrum quasi repellat reprehenderit sint sit velit
-                            voluptatem voluptatibus?</p>
+                        <p>{props.note}</p>
                     </div>
                 </CardFooter>
             </Card>

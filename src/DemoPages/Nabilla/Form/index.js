@@ -25,44 +25,74 @@ class FormUtama extends React.Component {
 
     constructor() {
         super();
-        this.state = {
-
-        }
+        this.state = {}
     }
 
     handleChange = (e) => {
         this.setState({[e.target.name]: e.target.value})
     }
 
-    componentDidMount() {
-        axios.get("http://localhost:1616/data")
-            .then(res => {
-                this.setState({
-                    id: res.data.id,
-                    title: res.data.title,
-                    location: res.data.location,
-                    date: res.data.date,
-                    participant: res.data.participant,
-                    note: res.data.note,
-                    file: res.data.file
-                })
-            })
+    handleFileChange = (e) => {
+        this.setState({[e.target.name]: e.target.files[0]})
     }
 
-    onSubmit = (e) => {
-        console.log(this.state)
-        const dataInput = {
-            id: this.state.id,
-            title: this.state.title,
-            location: this.state.location,
-            date: this.state.date,
-            participant: this.state.participant,
-            note: this.state.note,
-            file: this.state.file
-        }
-        axios.post("http://localhost:1616/data", dataInput)
-            .then(res => console.log(res.data))
+    componentDidMount() {
     }
+
+    // componentDidMount() {
+    //     axios.get("http://localhost:1616/data")
+    //         .then(res => {
+    //             this.setState({
+    //                 id: res.data.id,
+    //                 title: res.data.title,
+    //                 location: res.data.location,
+    //                 date: res.data.date,
+    //                 participant: res.data.participant,
+    //                 note: res.data.note,
+    //                 file: res.data.file
+    //             })
+    //         })
+    // }
+
+    onSubmit = (e) => {
+
+        const formData = new FormData();
+        // console.log("step 1");
+        const json = JSON.stringify({
+            "title": this.state.title,
+            "location": this.state.location,
+            "date": this.state.date,
+            "participant": this.state.participant,
+            "note": this.state.note
+        });
+
+        const blobDoc = new Blob([json], {
+            type: "application/json"
+        });
+
+        formData.append("file", this.state.file)
+        formData.append("data", blobDoc)
+
+        const config = {
+            headers: {
+                "content-type": "multipart/mixed",
+
+            }
+        }
+
+        axios.post("http://localhost:1616/data/save", formData, config)
+            .then(res => console.log(res.data))
+
+
+        // const cors = require('cors');
+        // const corsOptions ={
+        //     origin:'http://localhost:3000',
+        //     credentials:true,            //access-control-allow-credentials:true
+        //     optionSuccessStatus:200
+        // }
+        // app.use(cors(corsOptions));
+    }
+
 
     render() {
         return (
@@ -85,7 +115,7 @@ class FormUtama extends React.Component {
                                         <CardTitle><h5>Event</h5></CardTitle>
                                         <Form>
                                             <FormGroup>
-                                                <Label>Name : </Label>
+                                                <Label>Title : </Label>
                                                 <Input type="text" name="title" id="title"
                                                        onChange={this.handleChange}/>
                                             </FormGroup>
@@ -115,7 +145,8 @@ class FormUtama extends React.Component {
                                             <FormGroup>
                                                 {/*<NamaLabel name="Upload Picture :"/>*/}
                                                 <Label>Upload Picture : </Label>
-                                                <Input type="text" name="file" id="file" onChange={this.handleChange}/>
+                                                <Input type="file" name="file" id="file"
+                                                       onChange={this.handleFileChange}/>
                                             </FormGroup>
                                             <Button className="mb-2 mr-2 btn-icon" color="info" onClick={this.onSubmit}>
                                                 <i className="pe-7s-science btn-icon-wrapper"> </i>
