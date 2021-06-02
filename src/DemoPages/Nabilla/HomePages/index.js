@@ -8,6 +8,7 @@ import CardNya from "../Card";
 import Index from "../CardData";
 import axios from "axios";
 import {useSelector} from "react-redux";
+// 'use strict';
 
 const HomePage = () => {
     const [dataCard, setDataCard] = useState([])
@@ -16,18 +17,17 @@ const HomePage = () => {
     useEffect(() => {
         axios.get("http://localhost:1616/data").then(res => {
             setDataCard(res.data)
-            console.log(res.data)
         })
     }, [])
 
-    useEffect(() => {
-        dataCard.map((data,index ) => {
-            axios.get("http://localhost:1616/data/getImage/" + data.id).then(res => {
-                imageArrayPath.push(res.data)
-                console.log(imageArrayPath[index])
-            })
-        })
-    })
+    // useEffect(() => {
+    //     dataCard.map((data,index ) => {
+    //         axios.get("http://localhost:1616/data/getFoto/" + data.id).then(res => {
+    //             imageArrayPath.push(res.data)
+    //             console.log(imageArrayPath[index])
+    //         })
+    //     })
+    // })
 
     return (
         <Fragment>
@@ -44,7 +44,7 @@ const HomePage = () => {
                 <Row>
                     {dataCard.map((x, index) => (
                         <CardNya key={index} title={x.title} location={x.location} participant={x.participant}
-                                 date={x.date} note={x.note} file={x.file}/>
+                                 date={x.date} note={x.note} id={x.id}/>
                     ))}
                 </Row>
 
