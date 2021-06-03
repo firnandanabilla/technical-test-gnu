@@ -1,14 +1,16 @@
 import React, {Fragment} from 'react'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import axios from "axios";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 
 import {
     Row, Col,
-    Card, CardBody
+    Card, CardBody, Button
 } from 'reactstrap';
 
 import ReactTable from "react-table";
-import EditProduct from "./edit";
+import EditCard from "./edit";
 
 
 // const CreateRow = (props) => {
@@ -25,7 +27,8 @@ class TableData extends React.Component {
         super();
         this.state = {
             dataTable: [],
-            modal: false
+            modal: false,
+            idPro : 0
         };
         this.toggle = this.toggle.bind(this);
     }
@@ -38,9 +41,10 @@ class TableData extends React.Component {
             })
     }
 
-    toggle(){
+    toggle(sesuatu){
         this.setState({
-            modal: !this.state.modal
+            modal: !this.state.modal,
+            idPro: sesuatu.id
         });
     }
 
@@ -97,8 +101,8 @@ class TableData extends React.Component {
                                                             filterable: false,
                                                             Cell: row => (
                                                                 <div className="d-block w-100 text-center">
-                                                                    <button outline className="mb-2 mr-2 btn-pill" color="primary" onClick={this.toggle}>Edit</button>
-                                                                    <button outline className="mb-2 mr-2 btn-pill" color="danger" >Delete</button>
+                                                                    <Button outline className="mt-1" color="primary" onClick={()=>this.toggle(row.original)} style={{margin:"5px"}} ><FontAwesomeIcon icon={faEdit}/></Button>
+                                                                    <Button outline className="mt-1" color="danger" style={{margin:"5px"}} ><FontAwesomeIcon icon={faTrash}/></Button>
                                                                 </div>
                                                             )
                                                         }
@@ -110,7 +114,7 @@ class TableData extends React.Component {
                                     />
                                 </CardBody>
                             </Card>
-                            <EditProduct toggle={this.toggle} modal = {this.state.modal}/>
+                            <EditCard toggle={this.toggle} modal = {this.state.modal} id={this.state.idPro}/>
                         </Col>
                     </Row>
                 </CSSTransitionGroup>
