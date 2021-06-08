@@ -25,7 +25,7 @@ const EditCard = (props) => {
 
                 console.log(res.data.title)
             })
-        }
+        } , []
     )
     return (
         <>
