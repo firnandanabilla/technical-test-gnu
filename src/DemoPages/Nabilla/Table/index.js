@@ -23,17 +23,22 @@ import EditCard from "./edit";
 // }
 
 class TableData extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             dataTable: [],
             modal: false,
-            idPro : 0
+            idPro : 0,
+            dataEdit :[]
         };
         this.toggle = this.toggle.bind(this);
     }
 
     componentDidMount() {
+        this.getAllData()
+    }
+
+    getAllData(){
         axios.get("http://localhost:1616/data")
             .then(res => {
                 this.setState({dataTable: res.data})
@@ -42,11 +47,25 @@ class TableData extends React.Component {
     }
 
     toggle(sesuatu){
+        console.log(sesuatu)
         this.setState({
             modal: !this.state.modal,
             idPro: sesuatu.id
         });
+
+        axios.get("http://localhost:1616/data/" + sesuatu)
+            .then(res=>{
+                this.setState({
+                    dataEdit:res.data
+                })
+            })
+            .catch()
     }
+
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     this.getAllData()
+    // }
+
 
     render() {
         const {dataTable} = this.state;
@@ -101,7 +120,7 @@ class TableData extends React.Component {
                                                             filterable: false,
                                                             Cell: row => (
                                                                 <div className="d-block w-100 text-center">
-                                                                    <Button outline className="mt-1" color="primary" onClick={()=>this.toggle(row.original)} style={{margin:"5px"}} ><FontAwesomeIcon icon={faEdit}/></Button>
+                                                                    <Button outline className="mt-1" color="primary" onClick={()=>this.toggle(row.original.id)} style={{margin:"5px"}} ><FontAwesomeIcon icon={faEdit}/></Button>
                                                                     <Button outline className="mt-1" color="danger" style={{margin:"5px"}} ><FontAwesomeIcon icon={faTrash}/></Button>
                                                                 </div>
                                                             )
@@ -114,7 +133,7 @@ class TableData extends React.Component {
                                     />
                                 </CardBody>
                             </Card>
-                            <EditCard toggle={this.toggle} modal = {this.state.modal} id={this.state.idPro}/>
+                            <EditCard toggle={this.toggle} modal = {this.state.modal} id={this.state.idPro} data={this.state.dataEdit}/>
                         </Col>
                     </Row>
                 </CSSTransitionGroup>

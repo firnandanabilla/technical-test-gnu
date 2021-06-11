@@ -19,14 +19,50 @@ import axios from "axios";
 const EditCard = (props) => {
     const [dataaa, setDataaa] = useState([])
 
+    const [title, setTitle] = useState(null)
+    const [location, setLocation] = useState(null)
+    const [participant, setParticipant] = useState(null)
+    const [date, setDate] = useState(null)
+    const [note, setNote] = useState(null)
+
     useEffect(() => {
             axios.get("http://localhost:1616/data/" + props.id).then(res => {
                 setDataaa(res.data)
-
-                console.log(res.data.title)
+                console.log(dataaa)
             })
-        } , []
+        }, []
     )
+
+    useEffect(() => {
+            console.log(dataaa)
+        }, []
+    )
+
+    const onSubmit = (e) => {
+        const formData = new FormData();
+        const json = JSON.stringify({
+            "id": props.data.id,
+            "title": title == null ? props.data.title : title,
+            "location": location == null ? props.data.location : location,
+            "participant": participant == null ? props.data.participant : participant,
+            "date": date == null ? props.data.date : date,
+            "note": note == null ? props.data.note : note
+        });
+        const blobDoc = new Blob([json], {
+            type: 'application/json'
+        });
+
+        // formData.append("file", file)
+        formData.append('data', blobDoc)
+        // const config = {
+        //     headers: {
+        //         'content-type': 'multipart/mixed'
+        //     }
+        // }
+        axios.post("http://localhost:1616/data/save", formData)
+            .then(res => console.log(res.data))
+    }
+
     return (
         <>
             <span className="d-inline-block mb-2 mr-2">
@@ -35,31 +71,44 @@ const EditCard = (props) => {
                         <ModalBody>
                             <Form>
                                 <FormGroup>
-                                    <Label>Title :</Label>
-                                    <Input type="text" name="title" id="title" placeholder="Your Title" value={dataaa.title}/>
+                                    <Label>Title :{props.data.title}</Label>
+                                    <Input type="text" name="title" id="title" placeholder="Your Title"
+                                           onChange={(e) => {
+                                               setTitle(e.target.value)
+                                           }}/>
                                     {/*<Input type="text" name="title" id="title" placeholder="Your Title" />*/}
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Location :</Label>
-                                    <Input type="text" name="location" id="location" placeholder="Your Location" value={dataaa.location}/>
+                                    <Label>Location :{props.data.location}</Label>
+                                    <Input type="text" name="location" id="location" placeholder="Your Location"
+                                           onChange={(e) => {
+                                               setLocation(e.target.value)
+                                           }}/>
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Date :</Label>
-                                    <Input type="date" name="date" id="date" value={dataaa.date}/>
+                                    <Label>Date :{props.data.date}</Label>
+                                    <Input type="date" name="date" id="date" onChange={(e) => {
+                                        setDate(e.target.value)
+                                    }}/>
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Participant :</Label>
+                                    <Label>Participant :{props.data.participant}</Label>
                                     <Input type="text" name="participant" id="participant"
-                                           placeholder="Your Participant" value={dataaa.participant}/>
+                                           placeholder="Your Participant" onChange={(e) => {
+                                        setParticipant(e.target.value)
+                                    }}/>
                                 </FormGroup>
                                 <FormGroup>
-                                    <Label>Note :</Label>
-                                    <Input type="textarea" name="note" id="note" placeholder="Your Note" value={dataaa.note}/>
+                                    <Label>Note :{props.data.note}</Label>
+                                    <Input type="textarea" name="note" id="note" placeholder="Your Note"
+                                           onChange={(e) => {
+                                               setNote(e.target.value)
+                                           }}/>
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label>Upload Picture : </Label>
-                                    <Input type="file" name="file" id="file"/>
-                                </FormGroup>
+                                {/*<FormGroup>*/}
+                                {/*    <Label>Upload Picture :{props.data.file} </Label>*/}
+                                {/*    <Input type="file" name="file" id="file" />*/}
+                                {/*</FormGroup>*/}
 
                                 {/*<FormGroup>*/}
                                 {/*    <label>Gender</label>*/}
@@ -77,12 +126,12 @@ const EditCard = (props) => {
                                 {/*    <Input type="textarea" name="text" id="exampleText"*/}
                                 {/*           value={this.state.address}/>*/}
                                 {/*</FormGroup>*/}
-                                <Button color="primary" className="mt-1">Submit</Button>
+                                {/*<Button color="primary" className="mt-1">Submit</Button>*/}
                                         </Form>
                         </ModalBody>
                         <ModalFooter>
                             <Button color="link" onClick={props.toggle}>Cancel</Button>
-                            <Button color="primary" onClick={props.toggle}>Save</Button>
+                            <Button color="primary" onClick={()=>{onSubmit()}}>Save</Button>
                         </ModalFooter>
                     </Modal>
             </span>
