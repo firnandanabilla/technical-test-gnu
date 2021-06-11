@@ -63,6 +63,29 @@ const EditCard = (props) => {
             .then(res => console.log(res.data))
     }
 
+    const getAllData = () => {
+        axios.get("http://localhost:1616/data")
+            .then(res => {
+                props.updateData(res.data)
+            })
+    }
+
+    const onSave = () => {
+        const dataSave = {
+            "id": props.data.id,
+            "title": title == null ? props.data.title : title,
+            "location": location == null ? props.data.location : location,
+            "participant": participant == null ? props.data.participant : participant,
+            "date": date == null ? props.data.date : date,
+            "note": note == null ? props.data.note : note
+        }
+
+        axios.post("http://localhost:1616/data/save", dataSave, {headers: {'Content-Type': 'application/json'}})
+            .then(getAllData)
+
+        props.toggle(false)
+    }
+
     return (
         <>
             <span className="d-inline-block mb-2 mr-2">
@@ -105,33 +128,13 @@ const EditCard = (props) => {
                                                setNote(e.target.value)
                                            }}/>
                                 </FormGroup>
-                                {/*<FormGroup>*/}
-                                {/*    <Label>Upload Picture :{props.data.file} </Label>*/}
-                                {/*    <Input type="file" name="file" id="file" />*/}
-                                {/*</FormGroup>*/}
-
-                                {/*<FormGroup>*/}
-                                {/*    <label>Gender</label>*/}
-                                {/*    <div>*/}
-                                {/*        <CustomInput type="radio" id="exampleCustomRadio" name="customRadio"*/}
-                                {/*                     label="Male" checked={this.state.gender === 'Male'}/>*/}
-                                {/*        <CustomInput type="radio" id="exampleCustomRadio2"*/}
-                                {/*                     name="customRadio"*/}
-                                {/*                     label="Female"*/}
-                                {/*                     checked={this.state.gender === 'Female'}/>*/}
-                                {/*    </div>*/}
-                                {/*</FormGroup>*/}
-                                {/*<FormGroup>*/}
-                                {/*    <Label for="exampleText">Address</Label>*/}
-                                {/*    <Input type="textarea" name="text" id="exampleText"*/}
-                                {/*           value={this.state.address}/>*/}
-                                {/*</FormGroup>*/}
-                                {/*<Button color="primary" className="mt-1">Submit</Button>*/}
                                         </Form>
                         </ModalBody>
                         <ModalFooter>
                             <Button color="link" onClick={props.toggle}>Cancel</Button>
-                            <Button color="primary" onClick={()=>{onSubmit()}}>Save</Button>
+                            <Button color="primary" onClick={() => {
+                                onSave()
+                            }}>Save</Button>
                         </ModalFooter>
                     </Modal>
             </span>

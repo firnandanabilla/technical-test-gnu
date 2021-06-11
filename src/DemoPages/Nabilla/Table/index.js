@@ -133,7 +133,7 @@ class TableData extends React.Component {
                                     />
                                 </CardBody>
                             </Card>
-                            <EditCard toggle={this.toggle} modal = {this.state.modal} id={this.state.idPro} data={this.state.dataEdit}/>
+                            <EditCard toggle={this.toggle} modal = {this.state.modal} id={this.state.idPro} data={this.state.dataEdit} updateData={this.setState()}/>
                         </Col>
                     </Row>
                 </CSSTransitionGroup>
